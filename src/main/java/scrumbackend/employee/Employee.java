@@ -31,7 +31,7 @@ public class Employee {
     @Column(name = "email", nullable = false, columnDefinition = "TEXT")
     private String email;
     @JsonIgnore
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
 
     private Roles role;
