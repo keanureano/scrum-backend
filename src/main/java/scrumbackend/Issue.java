@@ -7,12 +7,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.time.Instant;
+import java.sql.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @AllArgsConstructor
@@ -28,12 +29,16 @@ public class Issue {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @CreatedDate
-  @Column(updatable = false)
-  private Instant createdAt;
-  
+  @CreationTimestamp
+  @Column(nullable = false, updatable = false)
+  private Date createdAt;
+
   private String issuesToday;
 
   private String issuesYesterday;
+
+  @UpdateTimestamp
+  @Column(name = "updated_at")
+  private Date updatedAt;
 
 }
