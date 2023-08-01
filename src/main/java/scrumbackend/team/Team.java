@@ -1,9 +1,11 @@
 package scrumbackend.team;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.List;
@@ -27,6 +29,6 @@ public class Team {
   
   private String name;
 
-  @OneToMany(mappedBy = "team")
+  @OneToMany(targetEntity = Employee.class, cascade = CascadeType.ALL, mappedBy = "team")
   private List<Employee> employees;
 }

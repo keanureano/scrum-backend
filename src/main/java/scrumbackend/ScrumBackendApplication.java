@@ -27,8 +27,11 @@ public class ScrumBackendApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Team team = Team.builder().name("Test").build();
+		Team team = Team.builder().name("Team 1").build();
 		teamRepository.save(team);
+
+		Team team2 = Team.builder().name("Team 2").build();
+		teamRepository.save(team2);
 
 		Employee employee = Employee.builder()
 				.name("Franz")
@@ -44,7 +47,7 @@ public class ScrumBackendApplication implements CommandLineRunner {
 				.email("islife@gmail.com")
 				.password("password")
 				.role(Roles.USER)
-				.team(team)
+				.team(team2)
 				.build();
 		employeeRepository.save(employee2);
 	}
