@@ -1,8 +1,7 @@
-package scrumbackend.issue;
+package scrumbackend.task;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -14,28 +13,30 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Builder
 @Entity
-@Table(name = "issue")
-@EntityListeners(AuditingEntityListener.class)
-public class Issue {
+@Table(name = "Task")
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Task {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private Long Id;
 
   @CreationTimestamp
-  @Column(nullable = false, updatable = false)
+  @Column(updatable = false, nullable = false)
   private Date createdAt;
 
   @UpdateTimestamp
   private Date updatedAt;
 
-  private String issuesToday;
-  private String issuesYesterday;
+  private String tasksToday;
+  private String tasksYesterday;
+  private String impediments;
+
+  @Builder.Default
+  private boolean isResolved = false;
 }
