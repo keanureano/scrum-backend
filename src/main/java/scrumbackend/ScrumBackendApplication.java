@@ -41,7 +41,7 @@ public class ScrumBackendApplication implements CommandLineRunner {
       .builder()
       .issuesToday("Issue 1")
       .issuesYesterday("Issue 1")
-	  .isResolved(true)
+      .isResolved(true)
       .build();
     issueRepository.save(issue);
     Issue issue2 = Issue
