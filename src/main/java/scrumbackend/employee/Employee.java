@@ -46,5 +46,4 @@ public class Employee {
 
     @OneToMany(mappedBy = "employee")
     private List<Task> tasks;
-
 }
