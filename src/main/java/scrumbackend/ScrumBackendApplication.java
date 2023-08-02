@@ -44,37 +44,13 @@ public class ScrumBackendApplication implements CommandLineRunner {
       .isResolved(true)
       .build();
     issueRepository.save(issue);
+
     Issue issue2 = Issue
       .builder()
       .issuesToday("Issue 2")
       .issuesYesterday("Issue 2")
       .build();
     issueRepository.save(issue2);
-
-    scrumbackend.task.Task task = scrumbackend.task.Task
-      .builder()
-      .tasksToday("Task Today 1")
-      .tasksYesterday("Task Yesterday 1")
-      .impediments("Impediment 1")
-      .build();
-
-    taskRepository.save(task);
-    scrumbackend.task.Task task2 = Task
-      .builder()
-      .tasksToday("Task Today 2")
-      .tasksYesterday("Task Yesterday 2")
-      .impediments("Impediment 2")
-      .build();
-    taskRepository.save(task2);
-
-    scrumbackend.task.Task task3 = Task
-      .builder()
-      .tasksToday("Task Today 2")
-      .tasksYesterday("Task Yesterday 2")
-      .impediments("Impediment 2")
-      .isResolved(true)
-      .build();
-    taskRepository.save(task3);
 
     Team team = Team.builder().name("Team 1").build();
     teamRepository.save(team);
@@ -101,5 +77,33 @@ public class ScrumBackendApplication implements CommandLineRunner {
       .team(team2)
       .build();
     employeeRepository.save(employee2);
+
+    scrumbackend.task.Task task = scrumbackend.task.Task
+      .builder()
+      .tasksToday("Task Today 1")
+      .tasksYesterday("Task Yesterday 1")
+      .impediments("Impediment 1")
+      .employee(employee)
+      .build();
+    taskRepository.save(task);
+
+    scrumbackend.task.Task task2 = Task
+      .builder()
+      .tasksToday("Task Today 2")
+      .tasksYesterday("Task Yesterday 2")
+      .impediments("Impediment 2")
+      .employee(employee2)
+      .build();
+    taskRepository.save(task2);
+
+    scrumbackend.task.Task task3 = Task
+      .builder()
+      .tasksToday("Task Today 2")
+      .tasksYesterday("Task Yesterday 2")
+      .impediments("Impediment 2")
+      .employee(employee2)
+      .isResolved(true)
+      .build();
+    taskRepository.save(task3);
   }
 }
