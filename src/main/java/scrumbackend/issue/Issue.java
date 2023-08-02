@@ -33,11 +33,10 @@ public class Issue {
   @Column(nullable = false, updatable = false)
   private Date createdAt;
 
+  @UpdateTimestamp
+  private Date updatedAt;
+
   private String issuesToday;
 
   private String issuesYesterday;
-
-  @UpdateTimestamp
-  @Column(name = "updated_at")
-  private Date updatedAt;
 }
