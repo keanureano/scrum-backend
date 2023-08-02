@@ -6,6 +6,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import scrumbackend.issues.Issue;
+import scrumbackend.issues.IssueRepository;
+
 @SpringBootApplication
 @EnableJpaAuditing
 public class ScrumBackendApplication implements CommandLineRunner {
@@ -15,15 +18,15 @@ public class ScrumBackendApplication implements CommandLineRunner {
 	}
 
 	@Autowired
-	IssueRepo issueRepo;
+	IssueRepository issueRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
 
 		Issue issue = Issue.builder().issuesToday("Issue 1").issuesYesterday("Issue 1").build();
-		issueRepo.save(issue);
+		issueRepository.save(issue);
 		Issue issue2 = Issue.builder().issuesToday("Issue 2").issuesYesterday("Issue 2").build();
-		issueRepo.save(issue2);
+		issueRepository.save(issue2);
 
 	}
 
