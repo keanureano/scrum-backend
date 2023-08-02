@@ -6,8 +6,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import scrumbackend.issues.Issue;
-import scrumbackend.issues.IssueRepository;
+import scrumbackend.issue.Issue;
+import scrumbackend.issue.IssueRepository;
 
 @SpringBootApplication
 @EnableJpaAuditing
