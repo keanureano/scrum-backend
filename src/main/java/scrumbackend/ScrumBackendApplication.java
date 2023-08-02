@@ -5,10 +5,15 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import scrumbackend.employee.Employee;
+import scrumbackend.employee.EmployeeRepository;
+import scrumbackend.employee.Roles;
 import scrumbackend.issue.Issue;
 import scrumbackend.issue.IssueRepository;
 import scrumbackend.task.Task;
 import scrumbackend.task.TaskRepository;
+import scrumbackend.team.Team;
+import scrumbackend.team.TeamRepository;
 
 @SpringBootApplication
 @EnableJpaAuditing
@@ -23,6 +28,12 @@ public class ScrumBackendApplication implements CommandLineRunner {
 
   @Autowired
   TaskRepository taskRepository;
+
+  @Autowired
+  EmployeeRepository employeeRepository;
+
+  @Autowired
+  TeamRepository teamRepository;
 
   @Override
   public void run(String... args) throws Exception {
@@ -63,5 +74,31 @@ public class ScrumBackendApplication implements CommandLineRunner {
       .isResolved(true)
       .build();
     taskRepository.save(task3);
+
+    Team team = Team.builder().name("Team 1").build();
+    teamRepository.save(team);
+
+    Team team2 = Team.builder().name("Team 2").build();
+    teamRepository.save(team2);
+
+    Employee employee = Employee
+      .builder()
+      .name("Franz")
+      .email("420@gmail.com")
+      .password("password")
+      .role(Roles.ADMIN)
+      .team(team)
+      .build();
+    employeeRepository.save(employee);
+
+    Employee employee2 = Employee
+      .builder()
+      .name("Lariba")
+      .email("islife@gmail.com")
+      .password("password")
+      .role(Roles.USER)
+      .team(team2)
+      .build();
+    employeeRepository.save(employee2);
   }
 }
