@@ -38,4 +38,7 @@ public class Issue {
 
   private String issuesToday;
   private String issuesYesterday;
+
+  @Builder.Default
+  private boolean isResolved = false;
 }
