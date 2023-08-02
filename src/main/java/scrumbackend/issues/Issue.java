@@ -1,4 +1,4 @@
-package scrumbackend;
+package scrumbackend.issues;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

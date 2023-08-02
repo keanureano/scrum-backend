@@ -1,4 +1,4 @@
-package scrumbackend;
+package scrumbackend.issues;
 
 import java.time.Instant;
 import java.util.List;

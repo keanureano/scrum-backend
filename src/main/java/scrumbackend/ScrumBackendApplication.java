@@ -6,6 +6,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import scrumbackend.issues.Issue;
+import scrumbackend.issues.IssueRepo;
+
 @SpringBootApplication
 @EnableJpaAuditing
 public class ScrumBackendApplication implements CommandLineRunner {
