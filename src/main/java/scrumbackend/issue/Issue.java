@@ -37,6 +37,5 @@ public class Issue {
   private Date updatedAt;
 
   private String issuesToday;
-
   private String issuesYesterday;
 }

@@ -8,5 +8,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface IssueRepository extends JpaRepository<Issue, Long> {
   Optional<Issue> findById(Long id);
   List<Issue> findByCreatedAtBetween(Date from, Date to);
-  
 }
