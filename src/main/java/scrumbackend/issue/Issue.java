@@ -1,4 +1,4 @@
-package scrumbackend.issues;
+package scrumbackend.issue;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,5 +40,4 @@ public class Issue {
   @UpdateTimestamp
   @Column(name = "updated_at")
   private Date updatedAt;
-
 }
