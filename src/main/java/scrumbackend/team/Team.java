@@ -18,7 +18,7 @@ import scrumbackend.user.User;
 @Data
 @Builder
 @Entity
-@Table(name = "team")
+@Table(name = "teams")
 public class Team {
 
   @Id
