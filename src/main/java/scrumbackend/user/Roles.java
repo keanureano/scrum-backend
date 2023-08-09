@@ -1,4 +1,4 @@
-package scrumbackend.employee;
+package scrumbackend.user;
 
 public enum Roles {
   ADMIN,

@@ -5,9 +5,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import scrumbackend.employee.Employee;
-import scrumbackend.employee.EmployeeRepository;
-import scrumbackend.employee.Roles;
+import scrumbackend.user.Roles;
+import scrumbackend.user.User;
+import scrumbackend.user.UserRepository;
 import scrumbackend.issue.Issue;
 import scrumbackend.issue.IssueRepository;
 import scrumbackend.task.Task;
@@ -30,7 +30,7 @@ public class ScrumBackendApplication implements CommandLineRunner {
   TaskRepository taskRepository;
 
   @Autowired
-  EmployeeRepository employeeRepository;
+  UserRepository userRepository;
 
   @Autowired
   TeamRepository teamRepository;
@@ -58,7 +58,7 @@ public class ScrumBackendApplication implements CommandLineRunner {
     Team team2 = Team.builder().name("Team 2").build();
     teamRepository.save(team2);
 
-    Employee employee = Employee
+    User user = User
       .builder()
       .name("Franz")
       .email("420@gmail.com")
@@ -66,9 +66,9 @@ public class ScrumBackendApplication implements CommandLineRunner {
       .role(Roles.ADMIN)
       .team(team)
       .build();
-    employeeRepository.save(employee);
+    userRepository.save(user);
 
-    Employee employee2 = Employee
+    User user2 = User
       .builder()
       .name("Lariba")
       .email("islife@gmail.com")
@@ -76,14 +76,14 @@ public class ScrumBackendApplication implements CommandLineRunner {
       .role(Roles.USER)
       .team(team2)
       .build();
-    employeeRepository.save(employee2);
+    userRepository.save(user2);
 
     scrumbackend.task.Task task = scrumbackend.task.Task
       .builder()
       .tasksToday("Task Today 1")
       .tasksYesterday("Task Yesterday 1")
       .impediments("Impediment 1")
-      .employee(employee)
+      .user(user)
       .build();
     taskRepository.save(task);
 
@@ -92,7 +92,7 @@ public class ScrumBackendApplication implements CommandLineRunner {
       .tasksToday("Task Today 2")
       .tasksYesterday("Task Yesterday 2")
       .impediments("Impediment 2")
-      .employee(employee2)
+      .user(user2)
       .build();
     taskRepository.save(task2);
 
@@ -101,7 +101,7 @@ public class ScrumBackendApplication implements CommandLineRunner {
       .tasksToday("Task Today 2")
       .tasksYesterday("Task Yesterday 2")
       .impediments("Impediment 2")
-      .employee(employee2)
+      .user(user2)
       .isResolved(true)
       .build();
     taskRepository.save(task3);

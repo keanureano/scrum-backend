@@ -14,13 +14,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import scrumbackend.user.User;
+
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import scrumbackend.employee.Employee;
 
 @Entity
-@Table(name = "Task")
+@Table(name = "task")
 @Builder
 @Data
 @NoArgsConstructor
@@ -47,6 +48,6 @@ public class Task {
   private boolean isResolved = false;
 
   @ManyToOne
-  @JoinColumn(name = "employee_id")
-  private Employee employee;
+  @JoinColumn(name = "user_id")
+  private User user;
 }

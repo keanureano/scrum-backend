@@ -1,4 +1,4 @@
-package scrumbackend.employee;
+package scrumbackend.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
@@ -22,8 +22,8 @@ import scrumbackend.team.Team;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "employee")
-public class Employee {
+@Table(name = "user")
+public class User {
 
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
@@ -42,6 +42,6 @@ public class Employee {
   @JoinColumn(name = "team_id")
   private Team team;
 
-  @OneToMany(mappedBy = "employee")
+  @OneToMany(mappedBy = "user")
   private List<Task> tasks;
 }
