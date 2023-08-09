@@ -40,10 +40,10 @@ public class User implements UserDetails {
   @Column(unique = true)
   private String email;
 
+  private String name;
+
   @JsonIgnore
   private String password;
-
-  private String name;
 
   @Enumerated(EnumType.STRING)
   private Role role;
