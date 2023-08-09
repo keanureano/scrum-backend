@@ -11,14 +11,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import scrumbackend.employee.Employee;
+import scrumbackend.user.User;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
 @Entity
-@Table(name = "team")
+@Table(name = "teams")
 public class Team {
 
   @Id
@@ -28,5 +28,5 @@ public class Team {
   private String name;
 
   @OneToMany(mappedBy = "team")
-  private List<Employee> employees;
+  private List<User> users;
 }
