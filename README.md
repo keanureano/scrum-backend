@@ -15,7 +15,7 @@ Origin: http://localhost:3000
 Content-Type: application/json
 
 {
-  "email": "email",
+  "email": "email@example.com",
   "name": "name",
   "password": "password"
 }
@@ -31,7 +31,7 @@ Origin: http://localhost:3000
 Content-Type: application/json
 
 {
-  "email": "email",
+  "email": "email@example.com",
   "password": "password"
 }
 ```
