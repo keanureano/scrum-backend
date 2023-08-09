@@ -40,6 +40,9 @@ public class JwtService {
     Map<String, Object> extraClaims,
     UserDetails userDetails
   ) {
+    Claims claims = Jwts.claims().setSubject(userDetails.getUsername());
+    claims.put("email", userDetails.getUsername());
+    extraClaims.forEach(claims::put);
     return Jwts
       .builder()
       .setClaims(extraClaims)
