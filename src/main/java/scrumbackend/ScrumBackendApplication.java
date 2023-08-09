@@ -5,15 +5,15 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import scrumbackend.user.Roles;
-import scrumbackend.user.User;
-import scrumbackend.user.UserRepository;
 import scrumbackend.issue.Issue;
 import scrumbackend.issue.IssueRepository;
 import scrumbackend.task.Task;
 import scrumbackend.task.TaskRepository;
 import scrumbackend.team.Team;
 import scrumbackend.team.TeamRepository;
+import scrumbackend.user.Role;
+import scrumbackend.user.User;
+import scrumbackend.user.UserRepository;
 
 @SpringBootApplication
 @EnableJpaAuditing
@@ -63,7 +63,7 @@ public class ScrumBackendApplication implements CommandLineRunner {
       .name("Franz")
       .email("420@gmail.com")
       .password("password")
-      .role(Roles.ADMIN)
+      .role(Role.ADMIN)
       .team(team)
       .build();
     userRepository.save(user);
@@ -73,7 +73,7 @@ public class ScrumBackendApplication implements CommandLineRunner {
       .name("Lariba")
       .email("islife@gmail.com")
       .password("password")
-      .role(Roles.USER)
+      .role(Role.USER)
       .team(team2)
       .build();
     userRepository.save(user2);

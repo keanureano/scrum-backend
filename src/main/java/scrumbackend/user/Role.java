@@ -1,6 +1,6 @@
 package scrumbackend.user;
 
-public enum Roles {
+public enum Role {
   ADMIN,
   USER,
   INACTIVE,
