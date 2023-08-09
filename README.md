@@ -1,6 +1,7 @@
 # Scrum Tracker Backend API
 
-This is a simple example of a Spring Boot REST API project with JWT authentication.
+Welcome to the Scrum Tracker Backend API, This Spring Boot application is a simple but powerful RESTful API with JWT authentication.
+This API serves as a reliable backend foundation for our Scrum management project.
 
 ## Endpoints
 
