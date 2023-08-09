@@ -11,6 +11,7 @@ Register a new user with email, name, and password.
 
 ```http
 POST http://localhost:8080/api/auth/register
+Origin: http://localhost:3000
 Content-Type: application/json
 
 {
@@ -26,6 +27,7 @@ Login with email and password to obtain an authentication token.
 
 ```http
 POST http://localhost:8080/api/auth/login
+Origin: http://localhost:3000
 Content-Type: application/json
 
 {
@@ -40,6 +42,7 @@ To retrieve data from the API, you'll need to use a valid JWT token obtained fro
 
 ```http
 GET http://localhost:8080/api
+Origin: http://localhost:3000
 Authorization: Bearer {TOKEN}
 ```
 
