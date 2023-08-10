@@ -47,7 +47,7 @@ public class JwtService {
       .setClaims(claims)
       .setSubject(userDetails.getUsername())
       .claim(
-        "authorities",
+        "roles",
         userDetails
           .getAuthorities()
           .stream()
