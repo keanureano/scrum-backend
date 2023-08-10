@@ -10,7 +10,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -37,16 +39,21 @@ public class JwtService {
   }
 
   public String generateToken(
-    Map<String, Object> extraClaims,
+    Map<String, Object> claims,
     UserDetails userDetails
   ) {
-    Claims claims = Jwts.claims().setSubject(userDetails.getUsername());
-    claims.put("email", userDetails.getUsername());
-    extraClaims.forEach(claims::put);
     return Jwts
       .builder()
-      .setClaims(extraClaims)
+      .setClaims(claims)
       .setSubject(userDetails.getUsername())
+      .claim(
+        "roles",
+        userDetails
+          .getAuthorities()
+          .stream()
+          .map(GrantedAuthority::getAuthority)
+          .collect(Collectors.toList())
+      )
       .setIssuedAt(new Date(System.currentTimeMillis()))
       .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
       .signWith(getSigningKey(), SignatureAlgorithm.HS256)

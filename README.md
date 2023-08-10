@@ -1,7 +1,27 @@
 # Scrum Tracker Backend API
 
-Welcome to the Scrum Tracker Backend API, This Spring Boot application is a simple but powerful RESTful API with JWT authentication.
-This API serves as a reliable backend foundation for our Scrum management project.
+Welcome to the Scrum Tracker Backend API! This Spring Boot application is a simple but powerful RESTful API with JWT authentication. This API serves as a reliable backend foundation for our Scrum management project.
+
+## Pre-made Users
+
+During startup, `UserDataInitializer.java` automatically creates three pre-made users with different roles:
+
+1. User Account:
+
+   - Email: user@example.com
+   - Password: userpassword
+   - Roles: USER
+
+2. Admin Account:
+
+   - Email: admin@example.com
+   - Password: adminpassword
+   - Roles: ADMIN, USER
+
+3. Inactive Account:
+   - Email: inactive@example.com
+   - Password: inactivepassword
+   - Roles: INACTIVE
 
 ## Endpoints
 
@@ -11,7 +31,6 @@ Register a new user with email, name, and password.
 
 ```http
 POST http://localhost:8080/api/auth/register
-Origin: http://localhost:3000
 Content-Type: application/json
 
 {
@@ -27,7 +46,6 @@ Login with email and password to obtain an authentication token.
 
 ```http
 POST http://localhost:8080/api/auth/login
-Origin: http://localhost:3000
 Content-Type: application/json
 
 {
@@ -42,7 +60,6 @@ To retrieve data from the API, you'll need to use a valid JWT token obtained fro
 
 ```http
 GET http://localhost:8080/api
-Origin: http://localhost:3000
 Authorization: Bearer {TOKEN}
 ```
 
