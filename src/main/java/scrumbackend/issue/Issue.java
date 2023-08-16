@@ -6,6 +6,7 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.sql.Date;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import scrumbackend.scrum.Scrum;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -37,8 +39,10 @@ public class Issue {
   private Date updatedAt;
 
   private String issuesToday;
-  private String issuesYesterday;
 
   @Builder.Default
   private boolean isResolved = false;
+
+  @OneToOne(mappedBy = "issue")
+  private Scrum scrum;
 }
