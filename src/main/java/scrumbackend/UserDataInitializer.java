@@ -1,10 +1,11 @@
 package scrumbackend;
 
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import scrumbackend.team.Team;
+import scrumbackend.team.TeamRepository;
 import scrumbackend.user.Role;
 import scrumbackend.user.User;
 import scrumbackend.user.UserRepository;
@@ -14,30 +15,66 @@ import scrumbackend.user.UserRepository;
 public class UserDataInitializer implements CommandLineRunner {
 
   private final UserRepository userRepository;
+  private final TeamRepository teamRepository;
   private final PasswordEncoder passwordEncoder;
 
   @Override
   public void run(String... args) {
-    createUser("user@example.com", "userpassword", Role.USER);
+    Team team = createTeamIfNotExist("Example Team");
 
-    createUser("admin@example.com", "adminpassword", Role.ADMIN);
+    createUserIfNotExist(
+      "user@example.com",
+      "User Name",
+      "userpassword",
+      Role.USER,
+      team
+    );
 
-    createUser("inactive@example.com", "inactivepassword", Role.INACTIVE);
+    createUserIfNotExist(
+      "admin@example.com",
+      "Admin Name",
+      "adminpassword",
+      Role.ADMIN,
+      team
+    );
+
+    createUserIfNotExist(
+      "inactive@example.com",
+      "Inactive Name",
+      "inactivepassword",
+      Role.INACTIVE,
+      team
+    );
   }
 
-  private void createUser(String email, String password, Role role) {
-    Optional<User> existingUser = userRepository.findByEmail(email);
+  private Team createTeamIfNotExist(String teamName) {
+    return teamRepository
+      .findByName(teamName)
+      .orElseGet(() ->
+        teamRepository.save(Team.builder().name(teamName).build())
+      );
+  }
 
-    if (existingUser.isPresent()) {
-      return;
-    }
-
-    User user = User
-      .builder()
-      .email(email)
-      .password(passwordEncoder.encode(password))
-      .role(role)
-      .build();
-    userRepository.save(user);
+  private User createUserIfNotExist(
+    String email,
+    String name,
+    String password,
+    Role role,
+    Team team
+  ) {
+    return userRepository
+      .findByEmail(email)
+      .orElseGet(() ->
+        userRepository.save(
+          User
+            .builder()
+            .email(email)
+            .name(name)
+            .password(passwordEncoder.encode(password))
+            .role(role)
+            .team(team)
+            .build()
+        )
+      );
   }
 }

@@ -14,11 +14,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import scrumbackend.user.User;
-
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import scrumbackend.scrum.Scrum;
+import scrumbackend.user.User;
 
 @Entity
 @Table(name = "tasks")
@@ -50,4 +50,8 @@ public class Task {
   @ManyToOne
   @JoinColumn(name = "user_id")
   private User user;
+
+  @ManyToOne
+  @JoinColumn(name = "scrum_id")
+  private Scrum scrum;
 }
