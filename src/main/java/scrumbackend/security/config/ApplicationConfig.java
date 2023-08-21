@@ -1,7 +1,6 @@
 package scrumbackend.security.config;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,8 +11,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import scrumbackend.user.UserRepository;
 
 @Configuration
@@ -21,23 +18,6 @@ import scrumbackend.user.UserRepository;
 public class ApplicationConfig {
 
   private final UserRepository userRepository;
-
-  @Value("${cors.allowedOrigin}")
-  private String allowedOrigin;
-
-  @Bean
-  public WebMvcConfigurer corsConfigurer() {
-    return new WebMvcConfigurer() {
-      @Override
-      public void addCorsMappings(CorsRegistry registry) {
-        registry
-          .addMapping("/**")
-          .allowedOrigins(allowedOrigin)
-          .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD")
-          .allowCredentials(true);
-      }
-    };
-  }
 
   @Bean
   public UserDetailsService userDetailsService() {
