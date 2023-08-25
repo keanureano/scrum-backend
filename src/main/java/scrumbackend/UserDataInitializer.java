@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import scrumbackend.issue.Issue;
+import scrumbackend.issue.IssueRepository;
 import scrumbackend.team.Team;
 import scrumbackend.team.TeamRepository;
 import scrumbackend.user.Role;
@@ -16,6 +18,7 @@ public class UserDataInitializer implements CommandLineRunner {
 
   private final UserRepository userRepository;
   private final TeamRepository teamRepository;
+  private final IssueRepository issueRepository;
   private final PasswordEncoder passwordEncoder;
 
   @Override
@@ -45,6 +48,10 @@ public class UserDataInitializer implements CommandLineRunner {
       Role.INACTIVE,
       team
     );
+
+    createIssueIfNotExist("Connectivity Problem");
+    createIssueIfNotExist("UI Alignment Error");
+    createIssueIfNotExist("Performance Degradation");
   }
 
   private Team createTeamIfNotExist(String teamName) {
@@ -75,6 +82,14 @@ public class UserDataInitializer implements CommandLineRunner {
             .team(team)
             .build()
         )
+      );
+  }
+
+  private Issue createIssueIfNotExist(String issuesToday) {
+    return issueRepository
+      .findByIssuesToday(issuesToday)
+      .orElseGet(() ->
+        issueRepository.save(Issue.builder().issuesToday(issuesToday).build())
       );
   }
 }
