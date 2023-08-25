@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import scrumbackend.user.User;
 
 @Service
 public class JwtService {
@@ -42,18 +43,22 @@ public class JwtService {
     Map<String, Object> claims,
     UserDetails userDetails
   ) {
+    User user = (User) userDetails;
+    claims.put("id", user.getId());
+    claims.put("email", user.getEmail());
+    claims.put("name", user.getName());
+    claims.put(
+      "roles",
+      userDetails
+        .getAuthorities()
+        .stream()
+        .map(GrantedAuthority::getAuthority)
+        .collect(Collectors.toList())
+    );
     return Jwts
       .builder()
       .setClaims(claims)
       .setSubject(userDetails.getUsername())
-      .claim(
-        "roles",
-        userDetails
-          .getAuthorities()
-          .stream()
-          .map(GrantedAuthority::getAuthority)
-          .collect(Collectors.toList())
-      )
       .setIssuedAt(new Date(System.currentTimeMillis()))
       .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
       .signWith(getSigningKey(), SignatureAlgorithm.HS256)
