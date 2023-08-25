@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import scrumbackend.issue.Issue;
-import scrumbackend.issue.IssueRepository;
+import scrumbackend.scrum.Scrum;
+import scrumbackend.scrum.ScrumRepository;
+import scrumbackend.task.Task;
+import scrumbackend.task.TaskRepository;
 import scrumbackend.team.Team;
 import scrumbackend.team.TeamRepository;
 import scrumbackend.user.Role;
@@ -16,16 +18,22 @@ import scrumbackend.user.UserRepository;
 @RequiredArgsConstructor
 public class UserDataInitializer implements CommandLineRunner {
 
+  private final PasswordEncoder passwordEncoder;
   private final UserRepository userRepository;
   private final TeamRepository teamRepository;
-  private final IssueRepository issueRepository;
-  private final PasswordEncoder passwordEncoder;
+  private final TaskRepository taskRepository;
+  private final ScrumRepository scrumRepository;
 
   @Override
   public void run(String... args) {
-    Team team = createTeamIfNotExist("Example Team");
+    // Create a team and assign users
+    Team team = createTeam("Test");
 
-    createUserIfNotExist(
+    // Create a Scrum
+    Scrum scrum = createScrum("Issues Today");
+
+    // Create users
+    User user = createUser(
       "user@example.com",
       "User Name",
       "userpassword",
@@ -33,7 +41,7 @@ public class UserDataInitializer implements CommandLineRunner {
       team
     );
 
-    createUserIfNotExist(
+    User admin = createUser(
       "admin@example.com",
       "Admin Name",
       "adminpassword",
@@ -41,7 +49,7 @@ public class UserDataInitializer implements CommandLineRunner {
       team
     );
 
-    createUserIfNotExist(
+    createUser(
       "inactive@example.com",
       "Inactive Name",
       "inactivepassword",
@@ -49,47 +57,67 @@ public class UserDataInitializer implements CommandLineRunner {
       team
     );
 
-    createIssueIfNotExist("Connectivity Problem");
-    createIssueIfNotExist("UI Alignment Error");
-    createIssueIfNotExist("Performance Degradation");
+    // Create Tasks for User and Admin
+    createTask(
+      "User's task details",
+      "User's yesterday details",
+      "User's impediments",
+      scrum,
+      user
+    );
+
+    createTask(
+      "Admin's task details",
+      "Admin's yesterday details",
+      "Admin's impediments",
+      scrum,
+      admin
+    );
   }
 
-  private Team createTeamIfNotExist(String teamName) {
-    return teamRepository
-      .findByName(teamName)
-      .orElseGet(() ->
-        teamRepository.save(Team.builder().name(teamName).build())
-      );
-  }
-
-  private User createUserIfNotExist(
+  private User createUser(
     String email,
     String name,
     String password,
     Role role,
     Team team
   ) {
-    return userRepository
-      .findByEmail(email)
-      .orElseGet(() ->
-        userRepository.save(
-          User
-            .builder()
-            .email(email)
-            .name(name)
-            .password(passwordEncoder.encode(password))
-            .role(role)
-            .team(team)
-            .build()
-        )
-      );
+    return userRepository.save(
+      User
+        .builder()
+        .email(email)
+        .name(name)
+        .password(passwordEncoder.encode(password))
+        .role(role)
+        .team(team)
+        .build()
+    );
   }
 
-  private Issue createIssueIfNotExist(String issuesToday) {
-    return issueRepository
-      .findByIssuesToday(issuesToday)
-      .orElseGet(() ->
-        issueRepository.save(Issue.builder().issuesToday(issuesToday).build())
-      );
+  private Team createTeam(String teamName) {
+    return teamRepository.save(Team.builder().name(teamName).build());
+  }
+
+  private Task createTask(
+    String tasksYesterday,
+    String tasksToday,
+    String impediments,
+    Scrum scrum,
+    User user
+  ) {
+    return taskRepository.save(
+      Task
+        .builder()
+        .tasksYesterday(tasksYesterday)
+        .tasksToday(tasksToday)
+        .impediments(impediments)
+        .scrum(scrum)
+        .user(user)
+        .build()
+    );
+  }
+
+  private Scrum createScrum(String issues) {
+    return scrumRepository.save(Scrum.builder().issues(issues).build());
   }
 }
