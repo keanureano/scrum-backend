@@ -3,6 +3,7 @@ package scrumbackend.scrum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -42,10 +43,10 @@ public class Scrum {
   @UpdateTimestamp
   private Date updatedAt;
 
-  @OneToMany(mappedBy = "scrum")
+  @OneToMany(mappedBy = "scrum", fetch = FetchType.EAGER)
   private List<Task> tasks;
 
-  @OneToOne
+  @OneToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "issue_id")
   private Issue issue;
 }
