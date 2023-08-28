@@ -27,7 +27,7 @@ public class UserDataInitializer implements CommandLineRunner {
   @Override
   public void run(String... args) {
     // Create a team and assign users
-    Team team = createTeam("Test");
+    Team team = createTeam("Test Team");
 
     // Create a Scrum
     Scrum scrum = createScrum("Issues Today");
